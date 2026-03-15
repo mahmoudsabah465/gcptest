@@ -1,25 +1,24 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const http = require('http');
+const httpProxy = require('http-proxy');
 
-const app = express();
+// Create the proxy server
+const proxy = httpProxy.createProxyServer({
+    target: 'http://35.225.235.142:80', // Forwarding to your DO Nginx port 80
+    ws: true // This is CRITICAL for WebSocket support
+});
 
-// This points to your DigitalOcean Nginx server
-const TARGET = 'https://gcp1.djhmix.xyz';
+const server = http.createServer((req, res) => {
+    // Standard web traffic (optional)
+    proxy.web(req, res);
+});
 
-app.use('/', createProxyMiddleware({
-    target: TARGET,
-    changeOrigin: true,
-    ws: true, // Crucial: This enables WebSocket proxying for V2Ray
-    logLevel: 'debug',
-    onError: (err, req, res) => {
-        console.error('Proxy Error:', err);
-        if (!res.headersSent) {
-            res.status(500).send('Proxy Error');
-        }
-    }
-}));
+// The magic: forwarding the WebSocket upgrade handshake
+server.on('upgrade', (req, socket, head) => {
+    proxy.ws(req, socket, head);
+});
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Proxy listening on port ${PORT}`);
+// App Engine expects the app to listen on port 8080
+const port = process.env.PORT || 8080;
+server.listen(port, () => {
+    console.log(`Proxy server running on port ${port}`);
 });
