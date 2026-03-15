@@ -3,7 +3,7 @@ const httpProxy = require('http-proxy');
 
 // Create the proxy server
 const proxy = httpProxy.createProxyServer({
-    target: 'http://35.225.235.142:80', // Forwarding to your DO Nginx port 80
+    target: 'http://34.42.60.105:80', // Forwarding to your DO Nginx port 80
     ws: true // This is CRITICAL for WebSocket support
 });
 
