@@ -1,5 +1,10 @@
-runtime: nodejs24 # Updated from nodejs18
+runtime: nodejs24
 instance_class: F1
+
+# This section removes the warning and sets your scaling limit
+automatic_scaling:
+  max_instances: 10
+  min_instances: 1
 
 network:
   session_affinity: true
