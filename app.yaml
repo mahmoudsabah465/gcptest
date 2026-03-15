@@ -1,5 +1,5 @@
-runtime: nodejs18 # Use the Node.js 18 runtime
-instance_class: F1 # Smallest/cheapest instance
+runtime: nodejs24 # Updated from nodejs18
+instance_class: F1
 
 network:
-  session_affinity: true # Keeps connection stable
+  session_affinity: true
