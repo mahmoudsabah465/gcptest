@@ -1,13 +1,10 @@
 {
   "name": "gae-v2ray-proxy",
   "version": "1.0.0",
-  "description": "App Engine Proxy for V2Ray",
-  "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "http-proxy-middleware": "^2.0.6"
+    "http-proxy": "^1.18.1"
   }
 }
