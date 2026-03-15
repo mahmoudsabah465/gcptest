@@ -4,6 +4,9 @@
   "scripts": {
     "start": "node server.js"
   },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "dependencies": {
     "http-proxy": "^1.18.1"
   }
