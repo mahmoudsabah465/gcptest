@@ -2,7 +2,7 @@ const http = require('http');
 const httpProxy = require('http-proxy');
 
 const proxy = httpProxy.createProxyServer({
-    target: 'http://209.38.39.242:80',
+    target: 'http://188.166.106.152:80',
     ws: true,
     changeOrigin: true
 });
